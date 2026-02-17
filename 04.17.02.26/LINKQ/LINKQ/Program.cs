@@ -55,7 +55,7 @@ namespace LINQ
 
             //kasutada where imimese otsimiseks
             //otsimine toimub nime alusel
-            var people = PeopleData.peoples
+            var peopleData = PeopleData.peoples
             .Where(x => x.Name == name);
 
             foreach (var people in peopleData)
