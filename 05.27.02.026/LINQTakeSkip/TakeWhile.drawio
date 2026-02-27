@@ -1,0 +1,56 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Leht-1" id="mGP0ovi4fmVRxpdZoNjp">
+    <mxGraphModel dx="831" dy="863" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="QYXLnKfEWD4QhVmgCqwB-1" target="QYXLnKfEWD4QhVmgCqwB-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="70" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-2" value="Stop" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="349" y="650" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="QYXLnKfEWD4QhVmgCqwB-3" target="QYXLnKfEWD4QhVmgCqwB-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-3" value="var takeWhile = PeopleList.Peoples.TakeWhile(x =&gt; x.Age &gt; 18);" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="306" y="210" width="216" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="QYXLnKfEWD4QhVmgCqwB-5" target="QYXLnKfEWD4QhVmgCqwB-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="QYXLnKfEWD4QhVmgCqwB-5" target="QYXLnKfEWD4QhVmgCqwB-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="370" />
+              <mxPoint x="200" y="695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-5" value="foreach (var item in takeWhile)" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="346" y="340" width="136" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="QYXLnKfEWD4QhVmgCqwB-7" target="QYXLnKfEWD4QhVmgCqwB-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="546" />
+              <mxPoint x="540" y="378" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-7" value="Console.WriteLine(item.Id + &quot; &quot; + item.Name + &quot; &quot; +  item.Age);" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="331" y="507" width="166" height="77.5" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-10" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="414" y="450" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QYXLnKfEWD4QhVmgCqwB-14" value="False" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="220" y="440" width="50" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

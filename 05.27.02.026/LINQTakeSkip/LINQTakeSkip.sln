@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQTakeSkip", "LINQTakeSkip\LINQTakeSkip.csproj", "{5975C6F9-BC0F-406B-8BE7-634FEF1EBF26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5975C6F9-BC0F-406B-8BE7-634FEF1EBF26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5975C6F9-BC0F-406B-8BE7-634FEF1EBF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5975C6F9-BC0F-406B-8BE7-634FEF1EBF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5975C6F9-BC0F-406B-8BE7-634FEF1EBF26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51EEEF9D-4062-4F0C-BF5A-D50CDA527ADA}
+	EndGlobalSection
+EndGlobal
