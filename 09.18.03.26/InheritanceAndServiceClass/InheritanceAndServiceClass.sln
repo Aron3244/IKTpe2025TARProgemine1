@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceAndServiceClass", "InheritanceAndServiceClass\InheritanceAndServiceClass.csproj", "{4FDB5260-B566-4224-A723-74C3C730664C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceAndServiceClass.AppServices", "InheritanceAndServiceClass.AppServices\InheritanceAndServiceClass.AppServices.csproj", "{1ED26F26-4D3C-46B9-935C-C7911665D67C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceAndServiceClass.Core", "InheritanceAndServiceClass.Core\InheritanceAndServiceClass.Core.csproj", "{B106B437-6E88-420D-9262-030B0B24D370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4FDB5260-B566-4224-A723-74C3C730664C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FDB5260-B566-4224-A723-74C3C730664C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FDB5260-B566-4224-A723-74C3C730664C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED26F26-4D3C-46B9-935C-C7911665D67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED26F26-4D3C-46B9-935C-C7911665D67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED26F26-4D3C-46B9-935C-C7911665D67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED26F26-4D3C-46B9-935C-C7911665D67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B106B437-6E88-420D-9262-030B0B24D370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B106B437-6E88-420D-9262-030B0B24D370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B106B437-6E88-420D-9262-030B0B24D370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B106B437-6E88-420D-9262-030B0B24D370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
