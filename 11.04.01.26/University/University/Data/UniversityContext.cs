@@ -15,8 +15,8 @@ namespace University.Data
         protected override void OnModelCreating(ModelBuilder ModelBuilder)
         {
             ModelBuilder.Entity<Course>().ToTable("Course");
-            ModelBuilder.Entity<Enrollment>().ToTable("Course");
-            ModelBuilder.Entity<Student>().ToTable("Course");
+            ModelBuilder.Entity<Enrollment>().ToTable("Enrollment");
+            ModelBuilder.Entity<Student>().ToTable("Student");
         }
     }
 }
