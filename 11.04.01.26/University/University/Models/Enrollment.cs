@@ -1,4 +1,6 @@
-﻿namespace University.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace University.Models
 {
     public class Enrollment
     {
