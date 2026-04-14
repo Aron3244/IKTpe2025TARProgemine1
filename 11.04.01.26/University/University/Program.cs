@@ -11,6 +11,10 @@ using University.Data;
             builder.Services.AddDbContext<UniversityContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityContext")));
 
+            //Add Database Developer Filter for development enviroment
+            //this will show detailed database errors during development
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
