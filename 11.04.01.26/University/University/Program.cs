@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using University.Data;
-    namespace University
+namespace University
 {
     public class Program
     {
@@ -11,7 +11,7 @@ using University.Data;
             builder.Services.AddDbContext<UniversityContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityContext")));
 
-            //Add Database Developer Filter for development enviroment
+            //Add Database Developer Filter for development environment
             //this will show detailed database errors during development
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,6 +40,26 @@ using University.Data;
                 .WithStaticAssets();
 
             app.Run();
+        }
+
+        //luuakse andmebaas, kui see veel ei eksisteeri
+        //ja sisestab sinna algandmed
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<UniversityContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
         }
     }
 }
