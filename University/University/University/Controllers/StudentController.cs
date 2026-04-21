@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using University.Data;
+using University.ViewModel;
 
 namespace University.Controllers
 {
@@ -65,12 +66,38 @@ namespace University.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Create()
+        //Get: Student/Create
+        //see meetod tagastab vaate, kus saab luua uue student-i
+        public IActionResult Create()
         {
-
-
-
             return View();
+        }
+        //Post: Student/Create
+        //see meetod salvestab uue student-i andmebaasi
+        [HttpPost]
+        //see meetod on kaitstud CSRF rünnakute eest
+        //see meetod on asünkroolne, mus töhendab, et see meetod ei saa olla samaaegselt mitu korda käivitatud
+        public async Task<IActionResult> Create(StudentCreateViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = new Models.Student
+                {
+                    LastName = vm.LastName,
+                    FirstMidName = vm.FirstMidName,
+                    EnrollmentDate = vm.EnrollmentDate
+                };
+                //lisame student-i andmebaasi ja salvestame muudatused
+
+                _context.Add(student);
+                //miks kasutamae await
+                //kui me kasutame await, siis me ootame kuni salvestamine on lõpetatuyd
+                await _context.SaveChangesAsync();
+                //pärast salvestamist suuname kasutaja Index vaatesse
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(vm);
         }
     }
 }
