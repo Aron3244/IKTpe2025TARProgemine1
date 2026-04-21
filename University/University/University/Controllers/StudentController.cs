@@ -47,6 +47,13 @@ namespace University.Controllers
             //leiame student'i id järgi
             var student = await _context.Students
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var vm = new ViewModel.StudentDetailsViewModel
+            {
+                Id = student.Id,
+                LastName = student.LastName,
+                FirstMidName = student.FirstMidName,
+                EnrollmentDate = student.EnrollmentDate
+            };
 
             //kui student on null, siis tagastame NotFound() tulemuse
             if (student == null)
@@ -55,7 +62,15 @@ namespace University.Controllers
             }
 
             //kui student on leitud, siis tagastame View(student) tulemuse
-            return View(student);
+            return View(vm);
+        }
+
+        public async Task<IActionResult> Create()
+        {
+
+
+
+            return View();
         }
     }
 }
