@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using University.Data;
+using University.Models;
 using University.ViewModel;
 
 namespace University.Controllers
@@ -47,13 +48,38 @@ namespace University.Controllers
 
             //leiame student'i id järgi
             var student = await _context.Students
+                //Include lubab objekti kasutada objekti sees
+                .Include(s => s.Enrollments)
+                //kui tahad uuestu objecti kasutada objekti sees, siis kasutad ThenInclude
+                .ThenInclude(e => e.Course)
+                //See lülitab välja andmete muudatuste jälgimise, et muuta päringud kiiremaks ja säästa mälu.
+                .AsNoTracking()
+                //tagastab esimese elemend, mis on tingimuses välja toodud
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var vm = new ViewModel.StudentDetailsViewModel
+            var vm = new StudentDetailsViewModel
             {
                 Id = student.Id,
                 LastName = student.LastName,
                 FirstMidName = student.FirstMidName,
-                EnrollmentDate = student.EnrollmentDate
+                EnrollmentDate = student.EnrollmentDate,
+                //kui object on objekti sees, siis tuleb teha niimoodi
+                //Miks kasutasime ?? - vaikia väärtusE ANNAB EHK DEFUALT väärtuse  ,kui muutuja on tühi(NULL)
+                //või´mitte drfineeritud.Annab enne vasakpoolse väärtsw, kui seé ei ole null, kui on null siis annab parempoolse väärtuse.
+                EnrollmentsVm = (student.Enrollments ?? Enumerable.Empty<Enrollment>())
+                   .Select(x => new EnrollmentViewModel
+                   {
+                        CourseId = x.CourseId,
+                        Grade = x.Grade,
+                        CourseVm = new CourseViewModel
+                        //1 õpilane võib mitu kursust olla läbinud ja selle tulemuseks tuleb 
+                        {
+                            CourseId = x.Course?.CourseId ?? 0,
+                            Title = x.Course?.Title,
+                            Credits = x.Course?.Credits ?? 0
+                        }
+                   }).ToArray()
+
+
             };
 
             //kui student on null, siis tagastame NotFound() tulemuse
