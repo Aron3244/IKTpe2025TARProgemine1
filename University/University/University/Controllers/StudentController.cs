@@ -125,5 +125,32 @@ namespace University.Controllers
 
             return View(vm);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var student = await _context.Students
+            .Include(s => s.Enrollments)
+            .ThenInclude(e => e.Course)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(m => m.Id == id);
+
+            //kui student on null, siis on not found
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            //tuleb teha domaini modelist andmete ülekanne view modeli omasse
+            var vm = new StudentEditViewModel
+            {
+                Id = student.Id,
+                LastName = student.LastName,
+                FirstMidName = student.FirstMidName,
+                EnrollmentDate = student.EnrollmentDate
+            };
+
+            return View(vm);
+        }
     }
 }
