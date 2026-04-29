@@ -221,5 +221,20 @@ namespace University.Controllers
 
             return View(vm);
         }
+
+        //tuleb tehaankeedi kustutamise nupp
+        [HttpPost]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
