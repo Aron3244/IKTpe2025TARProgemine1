@@ -20,15 +20,30 @@ namespace University.Controllers
 
         public async Task<IActionResult> Index(string sortOrder)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var students = from s in _context.Students
-                           select s;
+            //var students = from s in _context.Students
+            //               select s;
+
+            //leiame kõik student'id ja teisendame need StudentIndexViewModel'iks
+            //miks peab kasutama await?
+            //kui me kasutame await, siis me ootame kuni päring on lõpetatud
+            //ja saame tulemuse, enne kui me jätkame koodi täitmist
+            var students = _context.Students
+                .Select(s => new StudentIndexViewModel
+                {
+                    Id = s.Id,
+                    LastName = s.LastName,
+                    FirstMidName = s.FirstMidName,
+                    EnrollmentDate = s.EnrollmentDate
+                    //miks kasutame ToListAsync()?
+                    //kui me kasutame ToListAsync(), siis me saame tulemuse listina
+                });
 
             switch (sortOrder)
             {
-                case "name.desc":
+                case "name_desc":
                     students = students.OrderByDescending(s => s.LastName);
                     break;
 
@@ -45,20 +60,7 @@ namespace University.Controllers
                     break;
             }
 
-            //leiame kõik student'id ja teisendame need StudentIndexViewModel'iks
-            //miks peab kasutama await?
-            //kui me kasutame await, siis me ootame kuni päring on lõpetatud
-            //ja saame tulemuse, enne kui me jätkame koodi täitmist
-            var result = await _context.Students
-                .Select(s => new StudentIndexViewModel
-                {
-                    Id = s.Id,
-                    LastName = s.LastName,
-                    FirstMidName = s.FirstMidName,
-                    EnrollmentDate = s.EnrollmentDate
-                    //miks kasutame ToListAsync()?
-                    //kui me kasutame ToListAsync(), siis me saame tulemuse listina
-                }).ToListAsync();
+            var result = await students.ToListAsync();
 
             return View(result);
         }
@@ -203,7 +205,6 @@ namespace University.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //tehke Delete Get meetod koos vaatega
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -247,19 +248,31 @@ namespace University.Controllers
             return View(vm);
         }
 
-        //tuleb tehaankeedi kustutamise nupp
-        [HttpPost]
+
+        //tuleb teha ankeedi kustutamise nupp
         public async Task<IActionResult> DeletePost(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-
-            if (student != null)
+            try
             {
-                _context.Students.Remove(student);
+                Student delete = new Student()
+                {
+                    Id = id,
+                };
+                //teine variant
+                //var delete = await _context.Students
+                //    .FirstOrDefaultAsync(x => x.Id == id);
+
+                _context.Students.Remove(delete);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+                throw;
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Delete));
         }
     }
 }
