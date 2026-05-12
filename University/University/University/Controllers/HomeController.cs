@@ -5,12 +5,20 @@ using University.Data;
 using University.Models;
 using University.ViewModel;
 
-
 namespace University.Controllers
 {
-
     public class HomeController : Controller
     {
+        private readonly UniversityContext _context;
+
+        public HomeController
+            (
+                UniversityContext context
+            )
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -27,36 +35,22 @@ namespace University.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public class StudentController : Controller
-        {
-            private readonly UniversityContext _context;
-
-        public StudentController
-                (
-                    UniversityContext context
-                )
-            {
-                _context = context;
-            }
-        }
-         
-
-
-
         public async Task<IActionResult> About()
         {
             IQueryable<EnrollmentDateGroupViewModel> data =
-               from student in _context.Students
-               group student by student.EnrollmentDate 
-               into dateGroup
-               select new EnrollmentDateGroupViewModel()
-      {
-          EnrollmentDate = dateGroup.Key,
-          StudentCount = dateGroup.Count()
-      };
+                from student in _context.Students
+                group student by student.EnrollmentDate
+                into dateGroup
+                select new EnrollmentDateGroupViewModel()
+                {
+                    EnrollmentDate = dateGroup.Key,
+                    StudentCount = dateGroup.Count(),
+                };
+
+            //Tehke About vaade, mis kuvab üliõpilasete registeerimise kuupäeva järgi.
 
             return View(await data.AsNoTracking().ToListAsync());
+
         }
     }
 }
-
