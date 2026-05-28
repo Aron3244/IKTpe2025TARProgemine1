@@ -5,17 +5,16 @@ using University.Models;
 using University.ViewModel;
 using University.ViewModel.CoursesVM;
 
+
 namespace University.Controllers
 {
     public class CourseController : Controller
     {
-        //on vaja kututada välja Univercity constructor 
         private readonly UniversityContext _context;
         public CourseController
-         (
-             UniversityContext context
-         )
-
+            (
+                UniversityContext context
+            )
         {
             _context = context;
         }
@@ -23,69 +22,71 @@ namespace University.Controllers
         public async Task<IActionResult> Index()
         {
             var course = _context.Courses
-                .Include(c => c.Departments)
                 .Select(c => new CourseIndexViewModel
                 {
                     CourseId = c.CourseId,
-                    Title = c.Title,
                     Credits = c.Credits,
+                    Title = c.Title,
                     DepartmentId = c.DepartmentId,
                     Department = new CourseDepartmentIndexViewModel
                     {
                         DepartmentName = c.Departments.Name
                     }
-                 });
+                });
 
             return View(course);
-
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int? id)
         {
-            var course = await _context.Courses
-                .FirstOrDefaultAsync(m => m.CourseId == id);
-
-            if (course == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var vm = new CourseUpdateViewModel
-            {
-                CourseId = course.CourseId,
-                Title = course.Title,
-                Credits = course.Credits,
-                DepartmentId = course.DepartmentId
-            };
+            var vm = await _context.Courses
+                .Where(vm => vm.CourseId == id)
+                .Select(vm => new CourseUpdateViewModel
+                {
+                    CourseId = vm.CourseId,
+                    Credits = vm.Credits,
+                    Title = vm.Title,
+                    Department = new CourseDepartmentIndexViewModel
+                    {
+                        DepartmentName = vm.Departments.Name
+                    }
+                })
+                .FirstOrDefaultAsync();
 
             return View(vm);
         }
+    
 
-        [HttpPost]
+[HttpPost]
   
         public async Task<IActionResult> Update(CourseUpdateViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var course = new Models.Course
+                var course = new Course
                 {
                     CourseId = vm.CourseId,
                     Title = vm.Title,
                     Credits = vm.Credits,
-                    DepartmentId = vm.DepartmentId
+                    Departments = new Department
+                    {
+                        Name = vm.Department.DepartmentName
+                    }
                 };
-
-                var courseUpdateId = course.CourseId;
 
                 _context.Update(course);
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Update), new { id = courseUpdateId });
+                return RedirectToAction(nameof(Update));
             }
 
-            return View(vm);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
