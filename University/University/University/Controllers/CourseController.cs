@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using University.Data;
 using University.Models;
+using University.ViewModel;
 using University.ViewModel.CourseVM;
 
 namespace University.Controllers
@@ -154,6 +155,63 @@ namespace University.Controllers
                 .AsNoTracking(), "DepartmentId", "Name", selectedDepartment);
 
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Course? course = await _context.Courses.FindAsync(id);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new CourseDeleteViewModel
+            {
+                CourseId = course.CourseId,
+                Title = course.Title,
+                Credits = course.Credits,
+                DepartmentId = course.DepartmentId
+            };
+
+            return View(vm);
+        }
+
+
+        // Kursuse kustutamine
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            try
+            {
+                var delete = await _context.Courses.FindAsync(id);
+
+                if (delete == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Courses.Remove(delete);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException)
+            {
+                return RedirectToAction(
+                    nameof(Delete),
+                    new
+                    {
+                        id = id,
+                        saveChangesError = true
+                    });
+            }
         }
     }
 }
