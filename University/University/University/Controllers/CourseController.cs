@@ -146,6 +146,7 @@ namespace University.Controllers
 
 
 
+
         private void PopulateDepartmentDrowDownList(object selectedDepartment = null)
         {
             var departmentsQuery = from d in _context.Departments
@@ -164,22 +165,28 @@ namespace University.Controllers
                 return NotFound();
             }
 
-            Course? course = await _context.Courses.FindAsync(id);
+            var course = await _context.Courses
+                .Include(c => c.Departments)
+                .Where(c => c.CourseId == id)
+                .Select(c => new CourseDetailsViewModel
+                {
+                    CourseId = c.CourseId,
+                    Credits = c.Credits,
+                    Title = c.Title,
+                    DepartmentId = c.DepartmentId,
+                    Department = new CourseDepartmentIndexViewModel
+                    {
+                        DepartmentName = c.Departments.Name
+                    }
+                })
+                .FirstOrDefaultAsync();
 
             if (course == null)
             {
                 return NotFound();
             }
 
-            var vm = new CourseDeleteViewModel
-            {
-                CourseId = course.CourseId,
-                Title = course.Title,
-                Credits = course.Credits,
-                DepartmentId = course.DepartmentId
-            };
-
-            return View(vm);
+            return View(course);
         }
 
 
